@@ -116,7 +116,7 @@ public class PatientRegistrationUI extends JFrame {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int generatedId = rs.getInt(1);
-                    JOptionPane.showMessageDialog(this, "✅ Patient added. ID: " + generatedId);
+                    JOptionPane.showMessageDialog(this, " Patient added. ID: " + generatedId);
                     txtId.setText(String.valueOf(generatedId + 1)); // show next ID
                 }
 
@@ -128,7 +128,7 @@ public class PatientRegistrationUI extends JFrame {
                 JOptionPane.showMessageDialog(this, "Enter valid numbers for age");
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "❌ Error adding patient");
+                JOptionPane.showMessageDialog(this, " Error adding patient");
             }
         });
     }

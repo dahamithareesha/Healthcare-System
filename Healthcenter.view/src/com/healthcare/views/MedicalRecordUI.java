@@ -1,17 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.healthcare.views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class MedicalRecordUI extends JFrame {
 
     public MedicalRecordUI() {
         setTitle("🩺 Medical Records");
-        setSize(550, 430);
+        setSize(550, 480); // Extra height 
         setLayout(null);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -66,6 +67,13 @@ public class MedicalRecordUI extends JFrame {
         txtArea.setBorder(BorderFactory.createLineBorder(primaryColor, 1));
         JScrollPane scrollPane = new JScrollPane(txtArea);
 
+        // Generate Report Button
+        JButton btnReport = new JButton("Generate Report");
+        btnReport.setFont(labelFont);
+        btnReport.setBackground(new Color(76, 175, 80)); // Green
+        btnReport.setForeground(Color.WHITE);
+        btnReport.setFocusPainted(false);
+
         // Positioning
         lblId.setBounds(30, 60, 100, 25);
         txtId.setBounds(130, 60, 180, 25);
@@ -78,6 +86,7 @@ public class MedicalRecordUI extends JFrame {
         comboPrescription.setBounds(130, 140, 180, 25);
 
         scrollPane.setBounds(30, 190, 470, 170);
+        btnReport.setBounds(180, 370, 180, 30);
 
         // Add components
         add(lblTitle);
@@ -85,8 +94,9 @@ public class MedicalRecordUI extends JFrame {
         add(lblDiagnosis); add(comboDiagnosis);
         add(lblPrescription); add(comboPrescription);
         add(scrollPane);
+        add(btnReport);
 
-        // Search button action
+        // Search Button Action
         btnSearch.addActionListener(e -> {
             String id = txtId.getText().trim();
             String diagnosis = (String) comboDiagnosis.getSelectedItem();
@@ -101,8 +111,30 @@ public class MedicalRecordUI extends JFrame {
                     "\n\n• Diagnosis    : " + diagnosis +
                     "\n• Prescription : " + prescription);
         });
+
+        //  Report Button Action
+        btnReport.addActionListener(e -> {
+            try {
+                String reportPath = "C:\\Users\\thare\\JaspersoftWorkspace\\MyReports\\MedicalReport.jrxml";
+                JasperReport report = JasperCompileManager.compileReport(reportPath);
+
+                //  Connect to database
+                Connection conn = DBConnection.getConnection(); //  DB connection method
+
+                //  Parameters to pass to the report
+                Map<String, Object> params = new HashMap<>();
+                params.put("PatientID", txtId.getText().trim()); 
+
+                //  Fill the report with data
+                JasperPrint filledReport = JasperFillManager.fillReport(report, params, conn);
+
+                //  Show report
+                JasperViewer.viewReport(filledReport, false);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage());
+            }
+        });
     }
 }
-
-    
-

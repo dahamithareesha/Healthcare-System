@@ -103,7 +103,7 @@ public class AppointmentBookingUI extends JFrame {
             }
 
             JOptionPane.showMessageDialog(this,
-                    "✅ Appointment booked for:\n" +
+                    " Appointment booked for:\n" +
                     patient + " with " + doctor + "\non " + date + " at " + time,
                     "Success",
                     JOptionPane.INFORMATION_MESSAGE);

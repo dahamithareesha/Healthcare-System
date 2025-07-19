@@ -17,10 +17,7 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Correct format
-//            String url = "jdbc:sqlserver://localhost:1433;databaseName=Healthcare.db;encrypt=true;trustServerCertificate=true";
-//            String user = "DESKTOP-272IJAU"; // or your SQL Server username
-//            String password = ""; 
+           
             String url = "jdbc:mysql://localhost:3307/healthcareDB";
             String user = "root"; // Or your MySQL username
             String password = "";
