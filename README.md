@@ -1,3 +1,4 @@
-# NIBM - EAD caoursework
+### NIBM - EAD caoursework
 
-- DhamiThareesha
+- Dahami Thareesha 
+- CODCSD242F-030
